@@ -1,0 +1,64 @@
+body {
+   font-family: Arial, Helvetica, sans-serif;
+   background-color: white;
+   margin: 0 auto;
+   width: 600px;
+   height: 480;
+   border: 3px solid blue;
+   padding: 0 2em 1em;
+   font-size: 85%;
+}
+h1 {
+   color: blue;
+}
+div {
+   margin-bottom: 0.5em;
+}
+fieldset {
+   margin-top: 1em;
+   margin-bottom: 1em;
+   padding: .5em;
+}
+legend {
+   color: blue;
+   font-weight: bold;
+   font-size: 85%;
+   margin-bottom: .5em;
+}
+label {
+   display: inline-block;
+   width: 6em;
+}
+input {
+   margin-left: 1em;
+   margin-right: .5em;
+}
+input.left {
+   width: 1em;
+   padding-left: 0;
+}
+select {
+   margin-left: 1em;
+   margin-right: .5em;
+}
+p {
+   margin-top: 0;
+   margin-bottom: .5em;
+}
+#adults {
+   width: 35px;
+}
+#children {
+   width: 35px;
+}
+#smoking {
+   width: 1em;
+   margin-left: 0;
+}
+#submit {
+   margin-left: 0;
+   width: 10em;
+}
+span {
+   color: red;
+}
