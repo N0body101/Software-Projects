@@ -1,8 +1,6 @@
 """
-CS3B, stack implementation
+RPN Calculator
 Semmy Yoon
-This is my second assignment. Thank you so much for the help that you gave after Wednesday class.
-It was extremely helpful.
 """
 
 import numpy as np
