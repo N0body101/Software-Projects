@@ -1,0 +1,58 @@
+from bs4 import BeautifulSoup
+import requests
+import re
+from urllib.parse import urljoin
+
+
+def link_fisher(url: str, depth=0, reg_ex=""):
+    return list(set(_link_fisher(url, depth, reg_ex)))
+
+
+def _link_fisher(url, depth, reg_ex):
+    link_list = [url]
+    temp_list = []
+    if depth == 0:
+        link_list += temp_list
+        return link_list
+    else:
+        headers = {'User-Agent': ''}
+        try:
+            page = requests.get(url, headers=headers)
+        except:
+            print("Cannot access page")
+            return link_list
+        if page.status_code >= 400:
+            print("Page Error")
+        data = page.text
+        soup = BeautifulSoup(data, features="html.parser")
+        for link in soup.find_all('a'):
+            get_link = link.get("href")
+            pattern = re.compile(reg_ex)
+            if pattern.search(get_link):
+                link_list.append(urljoin("http://compsci.mrreed.com", get_link))
+        for a in link_list:
+            temp_list += _link_fisher(a, depth - 1, reg_ex)
+        link_list += temp_list
+        return link_list
+
+
+if __name__ == "__main__":
+    # print("The len of links in depth 0:", len(link_fisher("http://compsci.mrreed.com", depth=0)))
+    # print("The len of links in depth 1:", len(link_fisher("http://compsci.mrreed.com", depth=1)))
+    # print("The len of links in depth 2:", len(link_fisher("http://compsci.mrreed.com", depth=2)))
+    # print("The len of links in depth 3:", len(link_fisher("http://compsci.mrreed.com", depth=3)))
+    # print("The len of links in depth 2 with reg_ex = \"4\":", len(link_fisher("http://compsci.mrreed.com", depth=2, reg_ex="4")))
+    # print("The len of links in depth 2 with reg_ex = \"^[8]\":", len(link_fisher("http://compsci.mrreed.com", depth=2, reg_ex="^[8]")))
+    # print("The len of links in depth 2 with reg_ex = \"/8\":", len(link_fisher("http://compsci.mrreed.com", depth=2, reg_ex="/8")))
+    # print("Links in depth 1:", link_fisher("http://compsci.mrreed.com", depth=1))
+
+    '''
+    The len of links in depth 0: 1
+    The len of links in depth 1: 8
+    The len of links in depth 2: 98
+    The len of links in depth 3: 706
+    The len of links in depth 2 with reg_ex = "4": 11
+    The len of links in depth 2 with reg_ex = "^[8]": 1
+    The len of links in depth 2 with reg_ex = "/8": 2
+    Links in depth 1: ['http://compsci.mrreed.com', 'http://compsci.mrreed.com/8167.html', 'http://compsci.mrreed.com/1769.html', 'http://compsci.mrreed.com/6125.html', 'http://compsci.mrreed.com/4734.html', 'http://compsci.mrreed.com/9265.html', 'http://compsci.mrreed.com/5735.html', 'http://compsci.mrreed.com/3845.html']
+    '''
