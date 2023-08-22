@@ -1,6 +1,7 @@
 """
 RPN Calculator
 Semmy Yoon
+Create on January 2022
 """
 
 import numpy as np
